@@ -9,7 +9,7 @@ exports.signUp = async(req,res)=>{
         //verify existance
         const found = await Person.findOne({email})
         if (found){
-            res.status(400).send({erors : [{msg : 'Email already exists'}]})
+            res.status(400).send({errors : [{msg : 'Email already exists'}]})
         }
         const contactNew = new Person(req.body)
 

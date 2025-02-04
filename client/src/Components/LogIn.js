@@ -1,30 +1,34 @@
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import { useDispatch } from 'react-redux';
+import {useNavigate} from 'react-router-dom'
+import { logIn } from '../Redux/Actions/AuthActions';
 const Login =()=>{
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleLogin =(e)=>{
+        e.preventDefault()
+        dispatch(logIn({email,password}, navigate))
+    }
     return(
         <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter name" />
-            </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Age</Form.Label>
-                <Form.Control type="number" placeholder="Enter age" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" >
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="Enter email" />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" >
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control onChange={(e)=> setPassword(e.target.value)} type="password" placeholder="Password" />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button onClick={(e)=>handleLogin(e)} variant="primary" type="submit">
                 Submit
             </Button>
         </Form>
